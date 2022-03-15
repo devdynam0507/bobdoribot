@@ -9,6 +9,7 @@ import os
 import ssl
 import requests
 import sys
+import platform
 
 
 class SlackApi:
@@ -75,8 +76,18 @@ class SlackApi:
 
 # google chrome 드라이버를 사용하기 위한 초기화 함수
 def initialize_chrome_driver(connect_url):
+    options = webdriver.ChromeOptions()
+    platform_name = platform.system()
+
+    # gui가 없는 linux환경에서는 아래와 같이 설정해줘야 함.
+    if platform_name == 'Linux':
+        options.add_argument('--disable-extensions')
+        options.add_argument('--headless')
+        options.add_argument('--disable-gpu')
+        options.add_argument('--no-sandbox')
+
     service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service)
+    driver = webdriver.Chrome(service=service, options=options)
     driver.get(url=connect_url)
     driver.implicitly_wait(10)
 
