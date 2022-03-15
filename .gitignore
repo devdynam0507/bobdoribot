@@ -1,0 +1,6 @@
+.venv/
+aws-gamelift-script.py
+.DS_Store
+chromedriver
+main.py
+.idea/
