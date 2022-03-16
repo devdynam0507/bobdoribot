@@ -49,7 +49,7 @@ class SlackApi:
         today = datetime.today()
         message_index = today.day % len(self.bob_message)
 
-        return self.bob_message[0] if message_index == 0 else self.bob_message[message_index - 1]
+        return self.bob_message[message_index]
 
     def post_message(self, channel_id):
         self.client.chat_postMessage(
